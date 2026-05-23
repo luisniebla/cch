@@ -1,0 +1,26 @@
+{
+  "name": "finance-overview",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "server": "node server.js",
+    "client": "vite",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "vite build",
+    "start": "NODE_ENV=production node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "plaid": "^27.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-plaid-link": "^3.5.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "concurrently": "^8.2.2",
+    "vite": "^5.4.2"
+  }
+}
