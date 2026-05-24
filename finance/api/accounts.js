@@ -1,5 +1,10 @@
 const { Configuration, PlaidApi, PlaidEnvironments } = require('plaid');
-const { kv } = require('@vercel/kv');
+const { Redis } = require('@upstash/redis');
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
 
 const plaid = new PlaidApi(
   new Configuration({
@@ -16,7 +21,7 @@ const plaid = new PlaidApi(
 module.exports = async (req, res) => {
   if (req.method !== 'GET') return res.status(405).end();
   try {
-    const tokens = (await kv.get('tokens')) || [];
+    const tokens = (await redis.get('tokens')) || [];
     if (tokens.length === 0) return res.json({ accounts: [] });
     const results = await Promise.all(
       tokens.map(async ({ access_token, institution }) => {
